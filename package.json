@@ -1,0 +1,20 @@
+{
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "name": "fintekweatherserver",
+  "version": "1.0.0",
+  "description": "server for weather task",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "npm run test"
+  },
+  "keywords": [
+    "server",
+    "nodejs",
+    "weather"
+  ],
+  "author": "Dan Zemlyansky",
+  "license": "ISC"
+}
