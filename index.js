@@ -1,3 +1,11 @@
 const express = require('express');
+const weatherRoutes = require('./routes');
 
-const API_KEY = '3485b849ad8841fc9ba120916240508' // should be stored as env but public for the sake of sharing
+const app = express();
+
+app.use('/api', weatherRoutes);
+
+const port = 3000;
+app.listen(port, () => {
+    console.log(`Example app listening on port ${port}`);
+});
