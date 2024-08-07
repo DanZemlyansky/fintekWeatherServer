@@ -1,9 +1,15 @@
 const axios = require("axios");
-require('dotenv').config();
 
-const API_KEY = process.env.API_KEY;
-const API_BASE_URL = process.env.API_BASE_URL;
-    
+
+// require('dotenv').config();
+//!usually this is how i would do it
+// const API_KEY = process.env.API_KEY;
+// const API_BASE_URL = process.env.API_BASE_URL;
+
+API_KEY = '3485b849ad8841fc9ba120916240508' 
+API_BASE_URL = 'http://api.weatherapi.com/v1'
+
+
 const getWeather = async (req, res) => {
     const city = req.query.city;
 
