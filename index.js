@@ -1,12 +1,10 @@
 const express = require('express');
+const cors = require('cors');
 const weatherRoutes = require('./routes');
 
 const app = express();
 
-app.get('/', (req, res) => {
-    res.send('Server is up and running');
-});
-
+app.use(cors());
 app.use('/api', weatherRoutes);
 
 const port = 3000;
