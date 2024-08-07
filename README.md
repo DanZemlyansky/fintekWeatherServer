@@ -2,7 +2,7 @@ git clone https://github.com/DanZemlyansky/fintekWeatherServer.git
 
 npm i
 
-npm run dev
+npm run start
 
 server is running on port 3000; 
 
