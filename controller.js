@@ -3,7 +3,7 @@ require('dotenv').config();
 
 const API_KEY = process.env.API_KEY;
 const API_BASE_URL = process.env.API_BASE_URL;
-
+    
 const getWeather = async (req, res) => {
     const city = req.query.city;
 
@@ -16,6 +16,7 @@ const getWeather = async (req, res) => {
             params: {
                 key: API_KEY,
                 q: city,
+
             }
         });
         res.send(response.data);
@@ -39,22 +40,35 @@ const getForecast = async (req, res) => {
             params: {
                 key: API_KEY,
                 q: city,
-                days: 1, 
-       }
+                days: 2,  
+            }
         });
 
         const currentDateTime = new Date();
         const currentHour = currentDateTime.getHours();
-        
-        const forecastData = response.data.forecast.forecastday[0].hour.filter((hourData) => {
+        const forecastData = [];
+
+        const todayForecast = response.data.forecast.forecastday[0].hour;
+
+        const remainingHoursToday = todayForecast.filter(hourData => {
             const hour = new Date(hourData.time).getHours();
-            return hour >= currentHour && hour < currentHour + 5;
+            return hour >= currentHour;
         });
+
+        forecastData.push(...remainingHoursToday);
+
+        if (forecastData.length < 5) {
+            const nextDayForecast = response.data.forecast.forecastday[1].hour;
+            const neededHours = 5 - forecastData.length;
+            forecastData.push(...nextDayForecast.slice(0, neededHours));
+        }
+
+        const finalForecastData = forecastData.slice(0, 5);
 
         res.send({
             location: response.data.location,
             current: response.data.current,
-            forecast: forecastData
+            forecast: finalForecastData
         });
 
     } catch (error) {
@@ -62,5 +76,6 @@ const getForecast = async (req, res) => {
         res.status(500).send({ error: 'Error getting weather data' });
     }
 };
+
 
 module.exports = { getWeather , getForecast };
